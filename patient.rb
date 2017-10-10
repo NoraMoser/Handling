@@ -8,20 +8,34 @@ class Patient
   end
 
   def patient_status(status)
+    begin
     raise ArgumentError,"Argument is not a string" unless status.is_a? String
 
     @status = status
+  rescue ArgumentError => e
+    puts "patient_status error: #{e.message}"
+  end
   end
 
   def patient_currently_admitted?(admit_time)
+    begin
+      raise ArgumentError, "You can't do that shit"
     puts "Patient currently in hospital, admitted at #{admit_time}"
+
+    @admit_time = admit_time
+    rescue ArgumentError => e
+      puts "Error: #{e.message}"
+      end
   end
 
   def patient_new_total(amount)
     @current_balance = 0
     puts "Current balance before calculation: #{current_balance}"
-
+begin
     @current_balance = (current_balance + amount)/current_balance
+rescue ZeroDivisionError
+  puts "no, no"
+end
 
     # This runs only if there are no exceptions
     @current_balance = amount
